@@ -47,6 +47,8 @@ void deleteentry();
 
 void sampledata();
 
+void savedata();
+
 int main()
 {
     dataset set;
@@ -219,7 +221,6 @@ void generatecatagories(std::string input)
         if(input[i] == ',') 
         {
             cat_count++;
-            std::cout << readword <<std::endl;
             stringll::add(readword);
             readword = "";
             continue;
@@ -275,7 +276,7 @@ void datamode()
     {
         DEBUG("Datamode loop");
 
-        getinput(&userchoice, "[1] Create Entry\n[2] Remove Entry\n[3] Add Catagory\n[4] Remove Catagory\n[5] View Data\n[6] Analyze Data\n[7] Generate Sample Data\n[8] Clear Screen\n[9] Exit", 1, 9);
+        getinput(&userchoice, "[1] Create Entry\n[2] Remove Entry\n[3] Add Catagory\n[4] Remove Catagory\n[5] View Data\n[6] Analyze Data\n[7] Generate Sample Data\n[8] Save Data\n[9] Exit", 1, 9);
 
         DEBUG("Datamode - evaluating input " << userchoice);
         switch (userchoice)
@@ -306,8 +307,8 @@ void datamode()
             sampledata();
             break;
         case 8:
-            /* Clear Screen */
-            CLEAR;
+            /* Save Data */
+            savedata();
             break;
         case 9:
             /* Exit App */
@@ -414,4 +415,21 @@ void sampledata()
 
         dataset::add_entries(gen_entry);
     }
+}
+
+void savedata()
+{
+    	std::cout << "Enter the Path of the file you want to save to!" << std::endl;
+    	std::string path;
+    	std::cin >> path;
+	std::ofstream file;
+	file.open(path);
+
+	if(file.is_open())	//We have an open file
+	{
+		file << dataset::getcatagorystream();
+		file << dataset::getentrystream();
+		file.close();
+	}
+	
 }

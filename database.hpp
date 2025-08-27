@@ -255,6 +255,41 @@ public:
         }
         return nullptr;
     }
+
+    static std::string getcatagorystream()
+    {
+	std::string retstring = "";
+
+	for(int i = 0; i < instance->catagory_count-1; i++)
+	{
+		retstring += instance->catagories[i];
+		retstring += ",";
+	}
+	retstring += instance->catagories[instance->catagory_count-1];
+	retstring += "\n";
+
+	return retstring;
+    }
+
+    static std::string getentrystream()
+    {
+    	std::string retstring = "";
+
+	for(int i = 0; i < instance->entry_count; i++)
+	{
+		for(int x = 0; x < instance->entries[i].size-1; x++)
+		{
+			retstring += instance->entries[i].element[x];
+			retstring += ",";
+		}
+
+		retstring += instance->entries[i].element[instance->entries[i].size-1];
+		retstring += "\n";
+	}
+
+	return retstring;
+ 
+    }
 };
 
 dataset* dataset::instance = nullptr;
